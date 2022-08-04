@@ -49,7 +49,6 @@ const Carousel: FC<{ children?: ReactNode }> = ({ children }) => {
 
   return (
     <Flex
-      h="full"
       justifyContent="center"
       alignItems="center"
       w="full"
@@ -69,6 +68,8 @@ const Carousel: FC<{ children?: ReactNode }> = ({ children }) => {
           display="flex"
           justifyContent="center"
           alignItems="center"
+          transform="translateX(-50%)"
+          top={0}
         >
           {applyProps(child as ReactElement, {
             isActive: activeIndex === index,

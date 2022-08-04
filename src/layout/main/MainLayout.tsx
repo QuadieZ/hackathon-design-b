@@ -12,7 +12,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
       display="flex"
       flexDir="column"
       justifyContent="flex-start"
-      alignItems="flex-start"
+      alignItems="center"
       position="fixed"
       top={0}
       left={0}
@@ -20,8 +20,14 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
       h="100vh"
     >
       <Navbar />
-      <Flex w="full" display="flex" flex="1">
-        <Box>Sidebar</Box>
+      <Flex
+        bgColor="red"
+        overflow="hidden"
+        maxW="1440px"
+        w="full"
+        display="flex"
+        flex="1"
+      >
         <Box flex="1" p={8} position="relative">
           {children}
         </Box>
