@@ -14,27 +14,12 @@ export type IBaseIconProps = IIconProps & {
 };
 
 export const BaseIcon: FC<IBaseIconProps> = (props) => {
-  const {
-    children,
-    size = "16px",
-    variant = "special",
-    color,
-    ...rest
-  } = props;
-
-  const iconStyle = {
-    special: {
-      color: "#DEA59E",
-      _hover: {
-        color: "#94240B",
-      },
-    },
-  };
+  const { children, size, variant = "special", color, ...rest } = props;
 
   return (
     <Icon
-      boxSize={variant === "special" ? "24px" : size}
-      {...iconStyle[variant]}
+      boxSize={variant === "special" ? "32px" : size}
+      color={color}
       {...rest}
     >
       {children}

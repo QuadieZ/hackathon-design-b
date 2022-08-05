@@ -5,7 +5,7 @@ export const appTheme = extendTheme({
     global: {
       "html, body": {
         fontFamily: "'Poppins'",
-        backgroundColor: "#F9F4EF",
+        backgroundColor: "white",
       },
     },
   },
