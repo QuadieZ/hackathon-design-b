@@ -28,7 +28,7 @@ type ProductProps = {
 const sizingAnimation = (isActive?: boolean) => {
   return isActive
     ? {
-        width: "522px",
+        width: "400px",
         height: "10%",
       }
     : {
@@ -54,7 +54,7 @@ const Product: FC<ProductProps> = (props) => {
       initial={false}
       px={8}
       py={5}
-      mt="-3vh"
+      mt="-5vh"
     >
       <Box
         bg={

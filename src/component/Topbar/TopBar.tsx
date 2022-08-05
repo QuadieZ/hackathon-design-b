@@ -67,7 +67,7 @@ export const TopBar = () => {
         alignItems="center"
         justifyContent="center"
         gap={10}
-        mt="8px"
+        mt="12px"
       >
         <IconBox icon={ShirtIcon} label="Tops" active={active} />
         <IconBox icon={PantsIcon} label="Pants" active={active} />
