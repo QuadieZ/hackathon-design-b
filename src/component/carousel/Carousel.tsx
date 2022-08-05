@@ -1,15 +1,16 @@
-import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { Button, Box, StyleProps, ButtonProps } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import React, { ReactElement, useRef } from "react";
 import { FC, ReactNode, useState } from "react";
+
+import { ChevronLeftIcon, ChevronRightIcon } from "../../icon";
 
 const buttonStyles: ButtonProps = {
   position: "absolute",
   zIndex: 3,
   top: "50%",
   bgColor: "transparent",
-  w: "24px",
+  w: "36px",
   borderRadius: "50%",
   _hover: { bgColor: "transparent" },
   _active: { bgColor: "transparent" },
@@ -63,7 +64,6 @@ const Carousel: FC<CarouselProps> = ({ children }) => {
     <Box
       as={motion.div}
       w="full"
-      h="100%"
       ref={containerRef}
       position="relative"
       initial={false}
@@ -92,7 +92,7 @@ const Carousel: FC<CarouselProps> = ({ children }) => {
                 onClick={handlePrev}
                 {...buttonStyles}
               >
-                <ChevronLeftIcon boxSize={6} />
+                <ChevronLeftIcon />
               </Button>
             )}
             {applyProps(child as ReactElement, {
@@ -105,7 +105,7 @@ const Carousel: FC<CarouselProps> = ({ children }) => {
                 onClick={handleNext}
                 {...buttonStyles}
               >
-                <ChevronRightIcon boxSize={6} />
+                <ChevronRightIcon />
               </Button>
             )}
           </Box>
