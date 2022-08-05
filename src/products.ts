@@ -38,14 +38,20 @@ export const products = [
         variants: [
             {
                 color: "#23AD5B",
+                startColor: "#229656 2.6%",
+                endColor: "#98E7BE 99.6%",
                 src: `${process.env.PUBLIC_URL}/images/product/dip/green.png`,
             },
             {
                 color: "#6AD1F0",
+                startColor: "rgba(17, 150, 207, 0.8) 1.49%",
+                endColor: "rgba(151, 228, 248, 0.66) 102.78%",
                 src: `${process.env.PUBLIC_URL}/images/product/dip/blue.png`,
             },
             {
                 color: "#E43878",
+                startColor: "rgba(217, 47, 96, 0.8) 1.49%",
+                endColor: "rgba(253, 170, 198, 0.6) 102.78%",
                 src: `${process.env.PUBLIC_URL}/images/product/dip/pink.png`,
             },
         ],
@@ -72,6 +78,7 @@ export const products = [
         variants: [
             {
                 color: "#E46091",
+
                 src: `${process.env.PUBLIC_URL}/images/product/tank/pink.png`,
             },
             {

@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Circle,
   Flex,
@@ -13,6 +14,8 @@ import { AddToCartButton } from "../add-to-cart-button";
 
 export interface IProductVariant {
   color: string;
+  startColor?: string;
+  endColor?: string;
   src: string;
 }
 
@@ -53,13 +56,29 @@ const Product: FC<ProductProps> = (props) => {
       py={5}
       mt="-3vh"
     >
-      <Image
-        as={motion.img}
-        src={variant[activeVariant].src}
-        alt="productImage"
-        h={isActive ? "45vh" : "30vh"}
-        objectFit="contain"
-      />
+      <Box
+        bg={
+          isActive
+            ? `linear-gradient(204.52deg, ${variant[activeVariant].startColor}, ${variant[activeVariant].endColor})`
+            : "none"
+        }
+        animate={{
+          background: isActive
+            ? `linear-gradient(204.52deg, ${variant[activeVariant].startColor}, ${variant[activeVariant].endColor})`
+            : "white",
+        }}
+        mt={3}
+        borderRadius="22px"
+        as={motion.div}
+      >
+        <Image
+          as={motion.img}
+          src={variant[activeVariant].src}
+          alt="productImage"
+          h={isActive ? "45vh" : "30vh"}
+          objectFit="contain"
+        />
+      </Box>
       {isActive && (
         <Flex flexDirection="column" gap={3}>
           <Flex
