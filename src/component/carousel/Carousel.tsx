@@ -30,9 +30,9 @@ type CarouselProps = {
   height?: StyleProps["height"];
 };
 
-const Carousel: FC<CarouselProps> = ({ children, height = "500px" }) => {
+const Carousel: FC<CarouselProps> = ({ children }) => {
   const containerRef = useRef<any>();
-  const [activeIndex, setActiveIndex] = useState(2);
+  const [activeIndex, setActiveIndex] = useState(1);
 
   const renderingItems = React.Children.toArray(children);
 
