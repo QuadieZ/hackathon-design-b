@@ -1,6 +1,7 @@
 import { ChakraProvider, Box } from "@chakra-ui/react";
 import { Carousel, Product } from "./component";
 import { MainLayout } from "./layout";
+import { products } from "./products";
 
 import { appTheme } from "./theme";
 
@@ -9,11 +10,9 @@ const App = () => (
     <MainLayout>
       <Box height="522px">
         <Carousel>
-          <Product />
-          <Product />
-          <Product />
-          <Product />
-          <Product />
+          {products.map((product) => (
+            <Product label={product.label} variant={product.variants} />
+          ))}
         </Carousel>
       </Box>
     </MainLayout>

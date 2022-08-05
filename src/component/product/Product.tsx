@@ -1,10 +1,25 @@
-import { Button, Flex, Heading, Image, Text } from "@chakra-ui/react";
+import {
+  Button,
+  Circle,
+  Flex,
+  Heading,
+  HStack,
+  Image,
+  Text,
+} from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { AddToCartButton } from "../add-to-cart-button";
+
+export interface IProductVariant {
+  color: string;
+  src: string;
+}
 
 type ProductProps = {
   isActive?: boolean;
+  label?: string;
+  variant: IProductVariant[];
 };
 
 const sizingAnimation = (isActive?: boolean) => {
@@ -20,7 +35,9 @@ const sizingAnimation = (isActive?: boolean) => {
 };
 
 const Product: FC<ProductProps> = (props) => {
-  const { isActive } = props;
+  const { isActive, label, variant } = props;
+  const [activeVariant, setActiveVariant] = useState(0);
+
   return (
     <Flex
       as={motion.div}
@@ -38,7 +55,7 @@ const Product: FC<ProductProps> = (props) => {
     >
       <Image
         as={motion.img}
-        src={`${process.env.PUBLIC_URL}/images/product/hooddy-gray.png`}
+        src={variant[activeVariant].src}
         alt="productImage"
         h={isActive ? "45vh" : "30vh"}
         objectFit="contain"
@@ -51,7 +68,20 @@ const Product: FC<ProductProps> = (props) => {
             alignItems="center"
             m={2}
           >
-            <Heading fontSize="32px">Tank top</Heading>
+            <HStack my={3}>
+              {variant?.map((e, i) => (
+                <Circle
+                  size="12px"
+                  whileHover={{ scale: 1.2 }}
+                  as={motion.div}
+                  bg={e.color}
+                  cursor="pointer"
+                  onClick={() => setActiveVariant(i)}
+                  border={activeVariant === i ? "2px" : "0px"}
+                />
+              ))}
+            </HStack>
+            <Heading fontSize="24px">{label}</Heading>
             <Text fontSize="14px">35 $</Text>
           </Flex>
           <Flex gap={2}>
