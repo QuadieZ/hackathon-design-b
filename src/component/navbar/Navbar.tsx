@@ -68,10 +68,10 @@ const Navbar = () => {
           />
           <Box position="relative">
             <CartItemIcon id="cart-icon" boxSize="24px" cursor="pointer" />
-            {cartItems && (
+            {cartItems !== 0 && (
               <Box
                 position={"absolute"}
-                bgColor="red"
+                bgColor="#42BF77"
                 w="16px"
                 h="16px"
                 display="flex"
