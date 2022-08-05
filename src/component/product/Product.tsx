@@ -1,6 +1,7 @@
 import { Button, Flex, Heading, Image, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { FC } from "react";
+import { AddToCartButton } from "../add-to-cart-button";
 
 type ProductProps = {
   isActive?: boolean;
@@ -59,14 +60,7 @@ const Product: FC<ProductProps> = (props) => {
             >
               Product Details
             </Button>
-            <Button
-              borderRadius="25px"
-              bgColor="black"
-              color="white"
-              border="1px solid black"
-            >
-              Add to cart
-            </Button>
+            <AddToCartButton />
           </Flex>
         </Flex>
       )}

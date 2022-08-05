@@ -1,13 +1,19 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
-import { Button, StyleProps } from "@chakra-ui/react";
-import { chakra } from "@chakra-ui/react";
-import { motion, isValidMotionProp } from "framer-motion";
+import { Button, Box, StyleProps, ButtonProps } from "@chakra-ui/react";
+import { motion } from "framer-motion";
 import React, { ReactElement, useRef } from "react";
 import { FC, ReactNode, useState } from "react";
 
-const ChakraBox = chakra(motion.div, {
-  shouldForwardProp: (prop) => isValidMotionProp(prop) || prop === "children",
-});
+const buttonStyles: ButtonProps = {
+  position: "absolute",
+  zIndex: 3,
+  top: "50%",
+  bgColor: "transparent",
+  w: "24px",
+  borderRadius: "50%",
+  _hover: { bgColor: "transparent" },
+  _active: { bgColor: "transparent" },
+};
 
 const getActiveAnimation = (activeIndex: number, index: number) => {
   const diffIndex = activeIndex - index;
@@ -53,7 +59,8 @@ const Carousel: FC<CarouselProps> = ({ children }) => {
     React.cloneElement(element, props);
 
   return (
-    <ChakraBox
+    <Box
+      as={motion.div}
       w="full"
       h="100%"
       ref={containerRef}
@@ -63,7 +70,8 @@ const Carousel: FC<CarouselProps> = ({ children }) => {
       {renderingItems?.map((child, index) => {
         const isActive = activeIndex === index;
         return (
-          <ChakraBox
+          <Box
+            as={motion.div}
             key={index}
             animate={{
               ...getActiveAnimation(activeIndex, index),
@@ -78,17 +86,12 @@ const Carousel: FC<CarouselProps> = ({ children }) => {
           >
             {isActive && (
               <Button
-                position="absolute"
                 left="0"
-                top="50%"
-                transform="translate(-100%,-50%)"
-                zIndex={3}
+                transform="translate(calc(-100% - 4px),-50%)"
                 onClick={handlePrev}
-                bgColor="transparent"
-                _hover={{ bgColor: "transparent" }}
-                _active={{ bgColor: "transparent" }}
+                {...buttonStyles}
               >
-                <ChevronLeftIcon />
+                <ChevronLeftIcon boxSize={6} />
               </Button>
             )}
             {applyProps(child as ReactElement, {
@@ -96,23 +99,18 @@ const Carousel: FC<CarouselProps> = ({ children }) => {
             })}
             {isActive && (
               <Button
-                zIndex={3}
-                position="absolute"
                 right="0"
-                top="50%"
-                transform="translate(100%,-50%)"
+                transform="translate(calc(100% + 4px),-50%)"
                 onClick={handleNext}
-                bgColor="transparent"
-                _hover={{ bgColor: "transparent" }}
-                _active={{ bgColor: "transparent" }}
+                {...buttonStyles}
               >
-                <ChevronRightIcon />
+                <ChevronRightIcon boxSize={6} />
               </Button>
             )}
-          </ChakraBox>
+          </Box>
         );
       })}
-    </ChakraBox>
+    </Box>
   );
 };
 
