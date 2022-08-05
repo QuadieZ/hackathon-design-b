@@ -58,7 +58,7 @@ const IconBox = (props: IIconBoxProps) => {
 export const TopBar = () => {
   const [active] = useState("Tops");
   return (
-    <ChakraBox w="full" h="150px">
+    <ChakraBox w="full" h="150px" display="flex" alignItems="center" mt="-3vh">
       <ChakraBox
         h="80px"
         w="full"
@@ -67,7 +67,6 @@ export const TopBar = () => {
         alignItems="center"
         justifyContent="center"
         gap={10}
-        mt="12px"
       >
         <IconBox icon={ShirtIcon} label="Tops" active={active} />
         <IconBox icon={PantsIcon} label="Pants" active={active} />

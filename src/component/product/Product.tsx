@@ -54,7 +54,7 @@ const Product: FC<ProductProps> = (props) => {
       initial={false}
       px={8}
       py={5}
-      mt="-5vh"
+      mt="-6vh"
     >
       <Box
         bg={
