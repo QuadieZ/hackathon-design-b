@@ -1,5 +1,6 @@
 import { SearchIcon, SmallCloseIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import {
+  Box,
   Flex,
   Image,
   Input,
@@ -8,9 +9,14 @@ import {
   InputRightElement,
   Text,
 } from "@chakra-ui/react";
+import { useCartPosition } from "../../hooks";
 import { CartItemIcon } from "../icons/components/CartItemIcon";
 
 const Navbar = () => {
+  const { cartItems } = useCartPosition();
+
+  console.log("cartItems", cartItems);
+
   return (
     <Flex
       flexDirection="row"
@@ -60,7 +66,27 @@ const Navbar = () => {
             boxSize="24px"
             cursor="pointer"
           />
-          <CartItemIcon boxSize="24px" cursor="pointer" />
+          <Box position="relative">
+            <CartItemIcon id="cart-icon" boxSize="24px" cursor="pointer" />
+            {cartItems && (
+              <Box
+                position={"absolute"}
+                bgColor="red"
+                w="16px"
+                h="16px"
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                borderRadius="50%"
+                fontSize={12}
+                color="white"
+                top="-8px"
+                right="-8px"
+              >
+                {cartItems}
+              </Box>
+            )}
+          </Box>
           <Flex align="center" gap={2} cursor="pointer">
             <Text>Account</Text>
             <ChevronDownIcon />

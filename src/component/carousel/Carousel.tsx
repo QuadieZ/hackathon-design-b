@@ -17,7 +17,7 @@ const buttonStyles: ButtonProps = {
 
 const getActiveAnimation = (activeIndex: number, index: number) => {
   const diffIndex = activeIndex - index;
-  const unactiveLeft = 50 - diffIndex * 25;
+  const unActiveLeftPosition = 50 - diffIndex * 25;
 
   return activeIndex === index
     ? {
@@ -26,7 +26,8 @@ const getActiveAnimation = (activeIndex: number, index: number) => {
         opacity: 1,
       }
     : {
-        left: `${unactiveLeft}%`,
+        zIndex: 1,
+        left: `${unActiveLeftPosition}%`,
         opacity: diffIndex > 1 || diffIndex < -1 ? 0 : 0.5,
       };
 };
@@ -87,7 +88,7 @@ const Carousel: FC<CarouselProps> = ({ children }) => {
             {isActive && (
               <Button
                 left="0"
-                transform="translate(calc(-100% - 4px),-50%)"
+                transform="translate(calc(-100% - 16px),-50%)"
                 onClick={handlePrev}
                 {...buttonStyles}
               >
@@ -100,7 +101,7 @@ const Carousel: FC<CarouselProps> = ({ children }) => {
             {isActive && (
               <Button
                 right="0"
-                transform="translate(calc(100% + 4px),-50%)"
+                transform="translate(calc(100% + 16px),-50%)"
                 onClick={handleNext}
                 {...buttonStyles}
               >

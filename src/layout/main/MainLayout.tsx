@@ -1,6 +1,6 @@
 import { Box, Flex } from "@chakra-ui/react";
 import type { ReactNode } from "react";
-import { Navbar, TopBar } from "../../component";
+import { Navbar } from "../../component";
 
 type MainLayoutProps = {
   children: ReactNode;
@@ -20,11 +20,10 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
       h="100vh"
     >
       <Navbar />
-      <TopBar />
       <Flex overflow="hidden" maxW="1440px" w="full" display="flex" flex="1">
-        <Box flex="1" p={8} position="relative">
+        <Flex flexDir="column" flex="1" px={8} position="relative" gap={6}>
           {children}
-        </Box>
+        </Flex>
       </Flex>
     </Box>
   );
