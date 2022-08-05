@@ -44,7 +44,7 @@ const IconBox = (props: IIconBoxProps) => {
     >
       <Icon color={isActive ? "black" : hovered ? "#42BF77" : "#98A3B3"} />
       <Text
-        visibility={hovered && !isActive ? "visible" : "hidden"}
+        visibility={hovered || isActive ? "visible" : "hidden"}
         mt={2}
         fontSize="10px"
         color={hovered && !isActive ? "#42BF77" : "black"}
@@ -56,9 +56,9 @@ const IconBox = (props: IIconBoxProps) => {
 };
 
 export const TopBar = () => {
-  const [active, setActive] = useState("Tops");
+  const [active] = useState("Tops");
   return (
-    <ChakraBox w="full" h="80px" mt={5}>
+    <ChakraBox w="full" h="150px">
       <ChakraBox
         h="80px"
         w="full"
@@ -67,6 +67,7 @@ export const TopBar = () => {
         alignItems="center"
         justifyContent="center"
         gap={10}
+        mt="8px"
       >
         <IconBox icon={ShirtIcon} label="Tops" active={active} />
         <IconBox icon={PantsIcon} label="Pants" active={active} />

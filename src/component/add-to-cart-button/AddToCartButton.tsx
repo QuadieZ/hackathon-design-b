@@ -1,6 +1,7 @@
-import { Box, Button } from "@chakra-ui/react";
+import { Box, Button, Portal } from "@chakra-ui/react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { useCartPosition } from "../../hooks";
 import { CartIcon } from "../../icon";
 
 const containerHoverStyles = {
@@ -22,17 +23,51 @@ const textVariant = {
   click: textHoverStyles,
 };
 
-const iconVariant = {
-  click: {
-    left: "calc(100% - 16px)",
-  },
-};
-
 const AddToCartButton = () => {
+  const portalElementRef = useRef<any>();
+  const buttonRef = useRef<any>();
+
   const [currentVariant, setCurrentVariant] = useState("");
+  const [bubbleTarget, setBubbleTarget] = useState<{
+    from: [number, number];
+    to: [number, number];
+  } | null>(null);
+
+  const { getCartPosition, addCartItem } = useCartPosition();
+
+  const handleClickButton = () => {
+    setCurrentVariant("click");
+    showBubble();
+  };
+
+  const iconVariant = {
+    click: {
+      left: "calc(100% - 16px)",
+    },
+  };
+
+  const showBubble = () => {
+    const cartPosition = getCartPosition();
+    const { x, y, width } = buttonRef.current.getBoundingClientRect();
+    setBubbleTarget({
+      from: [x + width, y],
+      to: [cartPosition?.x ?? 0, cartPosition?.y ?? 0],
+    });
+  };
+
+  const handleBubbleEnd = () => {
+    setBubbleTarget(null);
+    addCartItem();
+  };
+
+  if (!portalElementRef.current) {
+    portalElementRef.current = document.createElement("div");
+  }
+
   return (
     <AnimatePresence>
       <Button
+        ref={buttonRef}
         as={motion.button}
         borderRadius="25px"
         bgColor="black"
@@ -44,7 +79,7 @@ const AddToCartButton = () => {
         animate={currentVariant}
         onMouseEnter={() => setCurrentVariant("hover")}
         onMouseLeave={() => setCurrentVariant("")}
-        onClick={() => setCurrentVariant("click")}
+        onClick={handleClickButton}
       >
         <Box
           position="relative"
@@ -64,6 +99,37 @@ const AddToCartButton = () => {
           Add to cart
         </Box>
       </Button>
+      <Portal>
+        {!!bubbleTarget && (
+          <Box
+            as={motion.div}
+            w="24px"
+            h="24px"
+            bgColor="red"
+            borderRadius="50%"
+            position="fixed"
+            left={bubbleTarget.from[0]}
+            top={bubbleTarget.from[1]}
+            initial={{
+              opacity: 0,
+            }}
+            animate={{
+              opacity: 1,
+              x: [0, 100, 0],
+              y: [0, 50, 0],
+              left: bubbleTarget.to[0],
+              top: bubbleTarget.to[1],
+              transition: {
+                duration: 1,
+              },
+            }}
+            exit={{
+              opacity: 0,
+            }}
+            onAnimationComplete={handleBubbleEnd}
+          />
+        )}
+      </Portal>
     </AnimatePresence>
   );
 };

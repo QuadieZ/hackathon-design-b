@@ -28,11 +28,11 @@ type ProductProps = {
 const sizingAnimation = (isActive?: boolean) => {
   return isActive
     ? {
-        width: "322px",
+        width: "522px",
         height: "10%",
       }
     : {
-        width: 255,
+        width: "150px",
         height: "10%",
       };
 };
