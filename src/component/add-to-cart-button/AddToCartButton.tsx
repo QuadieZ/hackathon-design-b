@@ -105,7 +105,7 @@ const AddToCartButton = () => {
             as={motion.div}
             w="24px"
             h="24px"
-            bgColor="red"
+            bgColor="#42BF77"
             borderRadius="50%"
             position="fixed"
             left={bubbleTarget.from[0]}
