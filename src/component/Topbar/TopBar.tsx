@@ -1,6 +1,6 @@
 import { isValidMotionProp, motion } from "framer-motion";
-import { Box, chakra, Text } from "@chakra-ui/react";
-import { ReactElement, ReactNode, useState, FC } from "react";
+import { chakra, Text } from "@chakra-ui/react";
+import { useState, FC } from "react";
 import { ShirtIcon } from "../icons/components/ShirtIcon";
 import { PantsIcon } from "../icons/components/PantsIcon";
 import { ShoesIcon } from "../icons/components/ShoesIcon";
@@ -14,6 +14,7 @@ interface IIconBoxProps {
   icon: FC<IIconProps>;
   label?: string;
   active?: string;
+  onClick?: () => void;
 }
 const ChakraBox = chakra(motion.div, {
   shouldForwardProp: (prop) => isValidMotionProp(prop) || prop === "children",
@@ -39,6 +40,7 @@ const IconBox = (props: IIconBoxProps) => {
       display="flex"
       flexDir="column"
       alignItems="center"
+      cursor="pointer"
     >
       <Icon color={isActive ? "black" : hovered ? "#42BF77" : "#98A3B3"} />
       <Text

@@ -1,17 +1,32 @@
-import { Button, Flex, Heading, Image, Text } from "@chakra-ui/react";
+import {
+  Button,
+  Circle,
+  Flex,
+  Heading,
+  HStack,
+  Image,
+  Text,
+} from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { AddToCartButton } from "../add-to-cart-button";
+
+export interface IProductVariant {
+  color: string;
+  src: string;
+}
 
 type ProductProps = {
   isActive?: boolean;
+  label?: string;
+  variant: IProductVariant[];
 };
 
 const sizingAnimation = (isActive?: boolean) => {
   return isActive
     ? {
         width: "322px",
-        height: "100%",
+        height: "10%",
       }
     : {
         width: 255,
@@ -20,7 +35,9 @@ const sizingAnimation = (isActive?: boolean) => {
 };
 
 const Product: FC<ProductProps> = (props) => {
-  const { isActive } = props;
+  const { isActive, label, variant } = props;
+  const [activeVariant, setActiveVariant] = useState(0);
+
   return (
     <Flex
       as={motion.div}
@@ -29,16 +46,18 @@ const Product: FC<ProductProps> = (props) => {
       justifyContent="center"
       alignItems="center"
       borderRadius="22px"
+      boxShadow={isActive ? "0px 8px 24px rgba(0, 0, 0, 0.15)" : "0"}
       animate={sizingAnimation(isActive)}
       initial={false}
-      p={8}
+      px={8}
+      py={5}
+      mt="-3vh"
     >
       <Image
         as={motion.img}
-        src={`${process.env.PUBLIC_URL}/images/product/hooddy-gray.png`}
+        src={variant[activeVariant].src}
         alt="productImage"
-        h="100%"
-        minH={isActive ? "387px" : "287px"}
+        h={isActive ? "45vh" : "30vh"}
         objectFit="contain"
       />
       {isActive && (
@@ -49,14 +68,28 @@ const Product: FC<ProductProps> = (props) => {
             alignItems="center"
             m={2}
           >
-            <Heading>Tank top</Heading>
-            <Text>35 $</Text>
+            <HStack my={3}>
+              {variant?.map((e, i) => (
+                <Circle
+                  size="12px"
+                  whileHover={{ scale: 1.2 }}
+                  as={motion.div}
+                  bg={e.color}
+                  cursor="pointer"
+                  onClick={() => setActiveVariant(i)}
+                  border={activeVariant === i ? "2px" : "0px"}
+                />
+              ))}
+            </HStack>
+            <Heading fontSize="24px">{label}</Heading>
+            <Text fontSize="14px">35 $</Text>
           </Flex>
           <Flex gap={2}>
             <Button
               borderRadius="25px"
               bgColor="transparent"
               border="1px solid black"
+              fontSize="14px"
             >
               Product Details
             </Button>
