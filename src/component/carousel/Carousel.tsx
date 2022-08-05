@@ -1,4 +1,5 @@
-import { Button, Flex } from "@chakra-ui/react";
+import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
+import { Button, StyleProps } from "@chakra-ui/react";
 import { chakra } from "@chakra-ui/react";
 import { motion, isValidMotionProp } from "framer-motion";
 import React, { ReactElement, useRef } from "react";
@@ -8,16 +9,15 @@ const ChakraBox = chakra(motion.div, {
   shouldForwardProp: (prop) => isValidMotionProp(prop) || prop === "children",
 });
 
-const sizingAnimation = (activeIndex: number, index: number) => {
+const getActiveAnimation = (activeIndex: number, index: number) => {
   const diffIndex = activeIndex - index;
   const unactiveLeft = 50 - diffIndex * 25;
-
-  console.log(index, unactiveLeft);
 
   return activeIndex === index
     ? {
         left: "50%",
         zIndex: 2,
+        opacity: 1,
       }
     : {
         left: `${unactiveLeft}%`,
@@ -25,9 +25,14 @@ const sizingAnimation = (activeIndex: number, index: number) => {
       };
 };
 
-const Carousel: FC<{ children?: ReactNode }> = ({ children }) => {
+type CarouselProps = {
+  children?: ReactNode;
+  height?: StyleProps["height"];
+};
+
+const Carousel: FC<CarouselProps> = ({ children, height = "500px" }) => {
   const containerRef = useRef<any>();
-  const [activeIndex, setActiveIndex] = useState(1);
+  const [activeIndex, setActiveIndex] = useState(2);
 
   const renderingItems = React.Children.toArray(children);
 
@@ -48,38 +53,66 @@ const Carousel: FC<{ children?: ReactNode }> = ({ children }) => {
     React.cloneElement(element, props);
 
   return (
-    <Flex
-      justifyContent="center"
-      alignItems="center"
+    <ChakraBox
       w="full"
-      gap="72px"
+      h="100%"
       ref={containerRef}
+      position="relative"
+      initial={false}
     >
-      <Button position="absolute" left="0" zIndex={3} onClick={handlePrev}>
-        Prev
-      </Button>
-      {renderingItems?.map((child, index) => (
-        <ChakraBox
-          key={index}
-          animate={{
-            ...sizingAnimation(activeIndex, index),
-          }}
-          position="absolute"
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          transform="translateX(-50%)"
-          top={0}
-        >
-          {applyProps(child as ReactElement, {
-            isActive: activeIndex === index,
-          })}
-        </ChakraBox>
-      ))}
-      <Button zIndex={3} position="absolute" right="0" onClick={handleNext}>
-        Next
-      </Button>
-    </Flex>
+      {renderingItems?.map((child, index) => {
+        const isActive = activeIndex === index;
+        return (
+          <ChakraBox
+            key={index}
+            animate={{
+              ...getActiveAnimation(activeIndex, index),
+            }}
+            position={"absolute"}
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            transform="translateX(-50%)"
+            top={0}
+            initial={false}
+          >
+            {isActive && (
+              <Button
+                position="absolute"
+                left="0"
+                top="50%"
+                transform="translate(-100%,-50%)"
+                zIndex={3}
+                onClick={handlePrev}
+                bgColor="transparent"
+                _hover={{ bgColor: "transparent" }}
+                _active={{ bgColor: "transparent" }}
+              >
+                <ChevronLeftIcon />
+              </Button>
+            )}
+            {applyProps(child as ReactElement, {
+              isActive: activeIndex === index,
+            })}
+            {isActive && (
+              <Button
+                zIndex={3}
+                position="absolute"
+                right="0"
+                top="50%"
+                transform="translate(100%,-50%)"
+                onClick={handleNext}
+                bgColor="transparent"
+                _hover={{ bgColor: "transparent" }}
+                _active={{ bgColor: "transparent" }}
+              >
+                <ChevronRightIcon />
+              </Button>
+            )}
+          </ChakraBox>
+        );
+      })}
+    </ChakraBox>
   );
 };
 

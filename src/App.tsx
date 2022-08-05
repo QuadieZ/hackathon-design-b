@@ -7,13 +7,15 @@ import { appTheme } from "./theme";
 const App = () => (
   <ChakraProvider theme={appTheme}>
     <MainLayout>
-      <Carousel>
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-      </Carousel>
+      <Box height="522px">
+        <Carousel>
+          <Product />
+          <Product />
+          <Product />
+          <Product />
+          <Product />
+        </Carousel>
+      </Box>
     </MainLayout>
   </ChakraProvider>
 );

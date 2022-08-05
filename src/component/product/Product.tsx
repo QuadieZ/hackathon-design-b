@@ -1,10 +1,6 @@
-import { chakra, Flex } from "@chakra-ui/react";
-import { isValidMotionProp, motion } from "framer-motion";
+import { Button, Flex, Heading, Image, Text } from "@chakra-ui/react";
+import { motion } from "framer-motion";
 import { FC } from "react";
-
-const ChakraBox = chakra(motion.div, {
-  shouldForwardProp: (prop) => isValidMotionProp(prop) || prop === "children",
-});
 
 type ProductProps = {
   isActive?: boolean;
@@ -14,28 +10,67 @@ const sizingAnimation = (isActive?: boolean) => {
   return isActive
     ? {
         width: "322px",
-        height: "522px",
+        height: "100%",
       }
     : {
         width: 255,
-        height: 255,
+        height: "10%",
       };
 };
 
 const Product: FC<ProductProps> = (props) => {
   const { isActive } = props;
   return (
-    <ChakraBox
-      display="flex"
+    <Flex
+      as={motion.div}
       bgColor="white"
       flexDir="column"
       justifyContent="center"
       alignItems="center"
-      borderRadius="55px"
+      borderRadius="22px"
       animate={sizingAnimation(isActive)}
+      initial={false}
+      p={8}
     >
-      Test
-    </ChakraBox>
+      <Image
+        as={motion.img}
+        src={`${process.env.PUBLIC_URL}/images/product/hooddy-gray.png`}
+        alt="productImage"
+        h="100%"
+        minH={isActive ? "387px" : "287px"}
+        objectFit="contain"
+      />
+      {isActive && (
+        <Flex flexDirection="column" gap={3}>
+          <Flex
+            flexDir="column"
+            justifyContent="center"
+            alignItems="center"
+            m={2}
+          >
+            <Heading>Tank top</Heading>
+            <Text>35 $</Text>
+          </Flex>
+          <Flex gap={2}>
+            <Button
+              borderRadius="25px"
+              bgColor="transparent"
+              border="1px solid black"
+            >
+              Product Details
+            </Button>
+            <Button
+              borderRadius="25px"
+              bgColor="black"
+              color="white"
+              border="1px solid black"
+            >
+              Add to cart
+            </Button>
+          </Flex>
+        </Flex>
+      )}
+    </Flex>
   );
 };
 

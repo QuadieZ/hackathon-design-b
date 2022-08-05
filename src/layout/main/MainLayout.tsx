@@ -20,14 +20,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
       h="100vh"
     >
       <Navbar />
-      <Flex
-        bgColor="red"
-        overflow="hidden"
-        maxW="1440px"
-        w="full"
-        display="flex"
-        flex="1"
-      >
+      <Flex overflow="hidden" maxW="1440px" w="full" display="flex" flex="1">
         <Box flex="1" p={8} position="relative">
           {children}
         </Box>

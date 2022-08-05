@@ -1,14 +1,12 @@
-import { theme } from "@chakra-ui/react";
+import { extendTheme } from "@chakra-ui/react";
 
-export const appTheme = {
-  ...theme,
+export const appTheme = extendTheme({
   styles: {
-    ...theme.styles,
     global: {
-      ...theme.styles.global,
       "html, body": {
+        fontFamily: "'Poppins'",
         backgroundColor: "#F9F4EF",
       },
     },
   },
-};
+});
