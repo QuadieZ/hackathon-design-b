@@ -39,6 +39,7 @@ const IconBox = (props: IIconBoxProps) => {
       display="flex"
       flexDir="column"
       alignItems="center"
+      cursor="pointer"
     >
       <Icon color={isActive ? "black" : hovered ? "#42BF77" : "#98A3B3"} />
       <Text

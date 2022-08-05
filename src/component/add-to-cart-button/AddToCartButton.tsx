@@ -37,6 +37,7 @@ const AddToCartButton = () => {
         borderRadius="25px"
         bgColor="black"
         color="white"
+        fontSize="14px"
         border="1px solid black"
         size="md"
         variants={containerVariant}
