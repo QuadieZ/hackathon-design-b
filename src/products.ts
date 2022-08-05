@@ -96,15 +96,20 @@ export const products = [
         variants: [
             {
                 color: "#E46091",
-
+                startColor: "rgba(208, 87, 132, 0.7) 1.49%",
+                endColor: "rgba(222, 94, 141, 0.2) 102.78%",
                 src: `${process.env.PUBLIC_URL}/images/product/tank/pink.png`,
             },
             {
                 color: "#FFB39D",
+                startColor: "rgba(253, 178, 157, 0.7) 1.49%",
+                endColor: "rgba(252, 179, 157, 0.2) 102.78%",
                 src: `${process.env.PUBLIC_URL}/images/product/tank/orange.png`,
             },
             {
                 color: "#6881C5",
+                startColor: "rgba(105, 131, 200, 0.7) 1.49%",
+                endColor: "rgba(108, 132, 200, 0.2) 102.78%",
                 src: `${process.env.PUBLIC_URL}/images/product/tank/blue.png`,
             },
         ],
